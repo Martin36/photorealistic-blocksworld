@@ -2,12 +2,15 @@ import json
 import random
 from datetime import datetime as dt
 
-properties         = {}
+properties = {}
 
-def load_colors(args):
+def load_properties(args):
   # Load the property file
   with open(args.properties_json, 'r') as f:
     properties.update(json.load(f))
+    
+    if args.only_blocks:
+      properties['shapes'] = {k:v for k,v in properties['shapes'].items() if k == 'cube'}
 
     # changes color value range from 0-255 to 0-1
     properties["colors"] = [
@@ -58,6 +61,8 @@ def initialize_parser_environment_options(parser):
 
   parser.add_argument('--object-jitter', default=0.0, type=float,
                       help="The magnitude of random jitter to add to the x,y position of each block.")
+  parser.add_argument('--only-blocks', action="store_true",
+                      help="If set, will only use blocks, no cylinders or spheres.")
 
 def initialize_parser_output_options(parser,prefix):
   parser.add_argument('--filename-prefix', default=prefix,

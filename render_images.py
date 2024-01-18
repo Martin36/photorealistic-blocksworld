@@ -18,7 +18,7 @@ if INSIDE_BLENDER:
   try:
     import utils
     import blocks
-    from blocks import State, Unstackable, load_colors
+    from blocks import State, Unstackable, load_properties
     from render_utils import render_scene
   except ImportError as e:
     print("\nERROR")
@@ -67,13 +67,16 @@ def path(dir,i,presuc,j,ext):
     i = "{:06d}".format(i)
   if isinstance(j, int):
     j = "{:03d}".format(j)
-  return os.path.join(args.output_dir,dir,"_".join(["CLEVR",i,presuc,j])+"."+ext)
+  return os.path.join(args.output_dir,dir,"_".join([PREFIX,i,presuc,j])+"."+ext)
 
 
 def main(args):
   import copy
-  load_colors(args)
+  load_properties(args)
 
+  global PREFIX
+  PREFIX = args.filename_prefix
+  
   os.makedirs(os.path.join(args.output_dir,"image_tr"), exist_ok=True)
   os.makedirs(os.path.join(args.output_dir,"scene_tr"), exist_ok=True)
 
