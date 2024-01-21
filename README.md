@@ -20,6 +20,7 @@ With anaconda,
 ```
 conda env create -f environment.yml
 conda activate prb
+conda install conda-forge::parallel   # This seems to fail sometimes when doing directly in the environment.yml
 ```
 
 Install blender:
@@ -28,6 +29,7 @@ Install blender:
 wget https://download.blender.org/release/Blender2.83/blender-2.83.2-linux64.tar.xz
 tar xf blender-2.83.2-linux64.tar.xz
 echo $PWD > $(echo blender*/2.*/python/lib/python*/site-packages/)clevr.pth
+rm blender-2.83.2-linux64.tar.xz
 ```
 
 Example: Run `./test.sh`.
